@@ -5,9 +5,7 @@ import { compose } from 'redux'
 import { Redirect } from 'react-router-dom'
 import moment from 'moment'
 
-const ProjectDetails = (props) => {
-
-    let { project, auth } = props
+let ProjectDetails = ({project, auth}) => {
 
     if (!auth.uid) return <Redirect to='/signin' />
 

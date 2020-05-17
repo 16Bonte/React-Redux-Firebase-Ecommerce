@@ -4,12 +4,9 @@ import SignedInLinks from './SignedInLinks'
 import SignedOutLinks from './SignedOutLinks'
 import { connect } from 'react-redux'
 
-const Navbar = (props) => {
-
-    let { auth, profile } = props
+const Navbar = ({ auth, profile }) => {
 
     let links = auth.uid ? <SignedInLinks profile={profile} /> : <SignedOutLinks />
-
 
     return (
         <Fragment>

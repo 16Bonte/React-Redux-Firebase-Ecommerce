@@ -9,7 +9,7 @@ import CreateProject from './components/projects/CreateProject'
 import Home from './components/home/Home'
  
  
-function App() {
+let App = () => {
   return (
     <BrowserRouter>
       <div className="App">

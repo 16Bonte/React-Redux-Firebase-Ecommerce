@@ -1,9 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 
-const Notifications = (props) => {
-
-    let { notifications } = props
+const Notifications = ({notifications}) => {
 
     return (
         <div>

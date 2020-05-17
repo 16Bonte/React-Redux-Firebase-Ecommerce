@@ -1,54 +1,46 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { createProject } from '../../store/actions/projectActions'
 import { Redirect } from 'react-router-dom'
 
 
-export class CreateProject extends Component {
-    state = {
+let CreateProject = ({ createProject, history, auth }) => {
+
+    let [project, setProject] = useState({
         title: '',
         content: ''
-    }
+    })
 
-    handleChange = (e) => {
-        this.setState({
-            [e.target.id]: e.target.value
-        })
-    }
+    let handleChange = (e) => setProject({ ...project, [e.target.id]: e.target.value })
+    
 
-    handleSubmit = (e) => {
+    let handleSubmit = (e) => {
         e.preventDefault()
-        // console.log(this.state)
-        this.props.createProject(this.state)
-        this.props.history.push('/')
+        createProject(project)
+        history.push('/')
     }
 
-    render() {
-
-        let { auth } = this.props
-
-        if (!auth.uid) return <Redirect to='/signin' />
+    if (!auth.uid) return <Redirect to='/signin' />
 
 
-        return (
-            <div className='container'>
-                <form onSubmit={this.handleSubmit} className="white">
-                    <h5 className='grey-text text-darken-3'>Create New Project</h5>
-                    <div className="input-field">
-                        <label htmlFor="title">Title</label>
-                        <input type="text" id="title" onChange={this.handleChange} />
-                    </div>
-                    <div className="input-field">
-                        <label htmlFor="content">Project Content</label>
-                        <textarea id="content" className="materialize-textarea" onChange={this.handleChange}></textarea>
-                    </div>
-                    <div className="input-field">
-                        <button className="btn pink lighten-1 z-depth">Create</button>
-                    </div>
-                </form>
-            </div>
-        )
-    }
+    return (
+        <div className='container'>
+            <form onSubmit={handleSubmit} className="white">
+                <h5 className='grey-text text-darken-3'>Create New Project</h5>
+                <div className="input-field">
+                    <label htmlFor="title">Title</label>
+                    <input type="text" id="title" onChange={handleChange} />
+                </div>
+                <div className="input-field">
+                    <label htmlFor="content">Project Content</label>
+                    <textarea id="content" className="materialize-textarea" onChange={handleChange}></textarea>
+                </div>
+                <div className="input-field">
+                    <button className="btn pink lighten-1 z-depth">Create</button>
+                </div>
+            </form>
+        </div>
+    )
 }
 
 let mapStateToProps = (state) => {
