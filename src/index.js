@@ -16,6 +16,7 @@ import { ReactReduxFirebaseProvider, getFirebase, isLoaded } from "react-redux-f
 import fbConfig from "./config/fbConfig";
 import firebase from "firebase/app";
 import { composeWithDevTools } from 'redux-devtools-extension';
+import Loader from './components/layout/Loader'
 
 
 const store = createStore(
@@ -41,7 +42,7 @@ let rrfProps = {
 
 let AuthIsLoaded = ({ children }) => {
   const auth = useSelector(state => state.firebase.auth)
-  if (!isLoaded(auth)) return <div>Loading data...</div>;
+  if (!isLoaded(auth)) return <Loader/>;
   return children
 }
 
