@@ -27,3 +27,12 @@ textarea.materialize-textarea:focus:not([readonly]){
   padding-left: 10%;
   padding-right: 10%;
 }
+
+#file-upload-button {
+  height: 100px;
+  background-color: black;
+}
+
+.test {
+  color: #ec407a;
+}

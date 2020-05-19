@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 
 const AddCategory = ({ createCategory, backToAdminStart }) => {
 
@@ -18,8 +18,11 @@ const AddCategory = ({ createCategory, backToAdminStart }) => {
 
 
     return (
+        <Fragment>
+        <br/><br/>
+        <button className="btn black z-depth" onClick={backToAdminStart}>Retour</button>
+        <br/>
         <div className='container'>
-            <button onClick={backToAdminStart}>Retour</button>
             <form onSubmit={handleSubmit} className="white">
                 <h5 className='grey-text text-darken-3'>Ajouter une catégorie</h5>
                 <div className="input-field">
@@ -35,10 +38,11 @@ const AddCategory = ({ createCategory, backToAdminStart }) => {
                     <textarea id="longDescription" className="materialize-textarea" onChange={handleChange}></textarea>
                 </div>
                 <div className="input-field">
-                    <button className="btn pink lighten-1 z-depth">Create</button>
+                    <button className="btn black z-depth">Create</button>
                 </div>
             </form>
         </div>
+        </Fragment>
     )
 }
 

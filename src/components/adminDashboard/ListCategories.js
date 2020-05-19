@@ -1,16 +1,25 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import CategorySummary from './CategorySummary'
 
-const ListCategories = ({ cateList }) => {
 
-    let handleClick = () => {
-        console.log(cateList)
-    }
+const CateProducts = ({ cateList, backToAdminStart }) => {
 
     return (
-        <div onClick={handleClick}>
-            ProductList
-        </div>
+        <Fragment>
+            <br/>
+            <button onClick={backToAdminStart} className="btn black z-depth">Retour</button>
+            <br/>
+            <br/>
+            <ul className="collection row">
+                {cateList && cateList.map(cate => {
+                    console.log(cate)
+                    return (
+                        <CategorySummary key={cate.id} cate={cate} />
+                    )
+                })}
+            </ul>
+        </Fragment>
     )
 }
 
-export default ListCategories
+export default CateProducts

@@ -16,8 +16,8 @@ import ListCategories from './ListCategories'
 const Dashboard = ({ auth, createCategory, createProduct, prodList, cateList }) => {
 
     let [action, setAction] = useState({
-        start: false,
-        newProduct: true,
+        start: true,
+        newProduct: false,
         newCategory: false,
         productsList: false,
         categoriesList: false
@@ -50,17 +50,19 @@ const Dashboard = ({ auth, createCategory, createProduct, prodList, cateList }) 
         <div>
             {start &&
                 <Fragment>
-                    <h4>Dashboard</h4>
-                    <div className="card" id='newProduct' onClick={handleAction}>Ajouter un Produit</div>
-                    <div className="card" id='newCategory' onClick={handleAction}>Ajouter une Catégorie</div>
-                    <div className="card" id='productsList' onClick={handleAction}>Liste des produits</div>
-                    <div className="card" id='categoriesList' onClick={handleAction}>Liste des catégories</div>
+                    <h4>Dashboard</h4><br/>
+                    <div className="collection">
+                        <div className="collection-item" id='newProduct' onClick={handleAction}>Ajouter un Produit</div>
+                        <div className="collection-item" id='newCategory' onClick={handleAction}>Ajouter une Catégorie</div>
+                        <div className="collection-item" id='productsList' onClick={handleAction}>Liste des produits</div>
+                        <div className="collection-item" id='categoriesList' onClick={handleAction}>Liste des catégories</div>
+                    </div>
                 </Fragment>
             }
-            {newProduct && <AddProduct createProduct={createProduct} backToAdminStart={backToAdminStart} />}
+            {newProduct && <AddProduct createProduct={createProduct} cateList={cateList} backToAdminStart={backToAdminStart} />}
             {newCategory && <AddCategory createCategory={createCategory} backToAdminStart={backToAdminStart} />}
-            {productsList && <ListProducts prodList={prodList} />}
-            {categoriesList && <ListCategories cateList={cateList}/>}
+            {productsList && <ListProducts prodList={prodList} backToAdminStart={backToAdminStart}/>}
+            {categoriesList && <ListCategories cateList={cateList} backToAdminStart={backToAdminStart}/>}
         </div>
     )
 }

@@ -11,9 +11,9 @@ const Navbar = ({ auth, profile }) => {
     return (
         <Fragment>
             {auth.isLoaded &&
-                <nav className="nav-wrapper grey darken-3">
+                <nav className="nav-wrapper black">
                     <div className="container">
-                        <Link to='/' className='brand-logo'>ProjectManager</Link>
+                        <Link to='/' className='brand-logo'>LesSlipsDeMonPère</Link>
                         {links}
                     </div>
                 </nav>

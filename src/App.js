@@ -10,11 +10,8 @@ import Home from './components/home/Home'
 import Shop from './components/shop/Shop'
 import About from './components/about/About'
 
-import AddCategory from './components/adminDashboard/AddCategory'
-import AddProduct from './components/adminDashboard/AddProduct'
 import AdminDashboard from './components/adminDashboard/Dashboard'
-import ProductList from './components/adminDashboard/ListProducts'
-import CategoryList from './components/adminDashboard/ListCategories'
+import ProductSummary from './components/adminDashboard/ProductSummary'
 
 
 let App = () => {
@@ -32,10 +29,7 @@ let App = () => {
           <Route exact path='/signup' component={SignUp} />
 
           <Route exact path='/admin' component={AdminDashboard} />
-          <Route exact path='/admin/ajouter-categorie' component={AddCategory} />
-          <Route exact path='/admin/ajouter-produit' component={AddProduct} />
-          <Route exact path='/admin/produits' component={ProductList} />
-          <Route exact path='/admin/categories' component={CategoryList} />
+          <Route path='/admin/produit/:id' component={ProductSummary} />
 
 
           <Route exact path='/create' component={CreateProject} />

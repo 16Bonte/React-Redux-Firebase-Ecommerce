@@ -3,7 +3,7 @@ export let createCategory = (category) => {
         let firestore = getFirestore()
 
         firestore.collection('categories').add({
-            category
+            ...category
         }).then(() =>{
             dispatch({type: 'CREATE_CATEGORY', payload: category})
         }).catch((err) => {
