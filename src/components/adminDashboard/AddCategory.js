@@ -12,10 +12,13 @@ const AddCategory = ({ createCategory, backToAdminStart }) => {
 
     let handleSubmit = (e) => {
         e.preventDefault()
-        createCategory(category)
-        backToAdminStart()
+        if (category.name === '') {
+            alert('Ajouter au moins un nom')
+        } else {
+            createCategory(category)
+            backToAdminStart()
+        }
     }
-
 
     return (
         <Fragment>

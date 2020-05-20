@@ -5,9 +5,50 @@ export let createProduct = (product) => {
         firestore.collection('products').add({
             ...product
         }).then(() => {
-            dispatch({type: 'CREATE_PRODUCT', product})
+            alert('Succeed')
         }).catch((err) => {
-            dispatch({type: 'CREATE_PRODUCT_ERROR', err})
+            alert(err)
         })
     }
 }
+
+export let updateProduct = (product) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        let firestore = getFirestore()
+
+        firestore.collection('products').doc(product.id).set({
+            ...product
+        }).then(() => {
+            alert('Succeed')
+        }).catch((err) => {
+            alert(err)
+        })
+    }
+}
+
+export let deleteProduct = (product) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        let firestore = getFirestore()
+
+        firestore.collection('products').doc(product.id).delete()
+        .then(() => {
+            alert('Succeed')
+        }).catch((err) => {
+            alert(err)
+        })
+    }
+}
+
+// export let updateProduct = (product) => {
+//     return (dispatch, getState, {getFirebase, getFirestore}) => {
+//         let firestore = getFirestore()
+        
+//         firestore.collection('products').doc(product.id).set({
+//             ...product
+//         }).then(() => {
+//             alert('Succeed')
+//         }).catch((err) => {
+//             alert(err)
+//         })
+//     }
+// }

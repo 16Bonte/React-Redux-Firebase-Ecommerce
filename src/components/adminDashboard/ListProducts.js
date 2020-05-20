@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import ProductSummary from './ProductSummary'
 
 
-const ListProducts = ({ prodList, backToAdminStart }) => {
+const ListProducts = ({ prodList, backToAdminStart, updateProduct, deleteProduct }) => {
 
     return (
         <Fragment>
@@ -14,7 +14,7 @@ const ListProducts = ({ prodList, backToAdminStart }) => {
                 {prodList && prodList.map(prod => {
                     console.log(prod.id)
                     return (
-                        <ProductSummary key={prod.id} prod={prod} />
+                        <ProductSummary key={prod.id} prod={prod} updateProduct={updateProduct} deleteProduct={deleteProduct} />
                     )
                 })}
             </ul>

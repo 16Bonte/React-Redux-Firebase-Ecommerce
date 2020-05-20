@@ -5,15 +5,27 @@ import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 
-import { createCategory } from '../../store/actions/categoriesActions'
-import { createProduct } from '../../store/actions/productsActions'
+import { createCategory, updateCategory, deleteCategory } from '../../store/actions/categoriesActions'
+import { createProduct, updateProduct, deleteProduct } from '../../store/actions/productsActions'
 
 import AddProduct from './AddProduct'
 import AddCategory from './AddCategory'
 import ListProducts from './ListProducts'
 import ListCategories from './ListCategories'
 
-const Dashboard = ({ auth, createCategory, createProduct, prodList, cateList }) => {
+const Dashboard = (state) => {
+
+    let {
+        auth,
+        createCategory,
+        createProduct,
+        prodList,
+        cateList,
+        updateProduct,
+        deleteProduct,
+        updateCategory,
+        deleteCategory
+    } = state
 
     let [action, setAction] = useState({
         start: true,
@@ -50,19 +62,44 @@ const Dashboard = ({ auth, createCategory, createProduct, prodList, cateList }) 
         <div>
             {start &&
                 <Fragment>
-                    <h4>Dashboard</h4><br/>
+                    <h4>Dashboard</h4><br />
                     <div className="collection">
-                        <div className="collection-item" id='newProduct' onClick={handleAction}>Ajouter un Produit</div>
-                        <div className="collection-item" id='newCategory' onClick={handleAction}>Ajouter une Catégorie</div>
-                        <div className="collection-item" id='productsList' onClick={handleAction}>Liste des produits</div>
-                        <div className="collection-item" id='categoriesList' onClick={handleAction}>Liste des catégories</div>
+                        <div className="collection-item homeDashLi" id='newProduct' onClick={handleAction}>Ajouter un Produit</div>
+                        <div className="collection-item homeDashLi" id='newCategory' onClick={handleAction}>Ajouter une Catégorie</div>
+                        <div className="collection-item homeDashLi" id='productsList' onClick={handleAction}>Liste des produits</div>
+                        <div className="collection-item homeDashLi" id='categoriesList' onClick={handleAction}>Liste des catégories</div>
                     </div>
                 </Fragment>
             }
-            {newProduct && <AddProduct createProduct={createProduct} cateList={cateList} backToAdminStart={backToAdminStart} />}
-            {newCategory && <AddCategory createCategory={createCategory} backToAdminStart={backToAdminStart} />}
-            {productsList && <ListProducts prodList={prodList} backToAdminStart={backToAdminStart}/>}
-            {categoriesList && <ListCategories cateList={cateList} backToAdminStart={backToAdminStart}/>}
+            {newProduct && 
+            <AddProduct 
+            createProduct={createProduct} 
+            cateList={cateList} 
+            backToAdminStart={backToAdminStart} 
+            />}
+
+            {newCategory && 
+            <AddCategory 
+            createCategory={createCategory} 
+            backToAdminStart={backToAdminStart} 
+            />}
+
+            {productsList && 
+            <ListProducts 
+            prodList={prodList} 
+            updateProduct={updateProduct} 
+            deleteProduct={deleteProduct} 
+            backToAdminStart={backToAdminStart} 
+            />}
+
+            {categoriesList && 
+            <ListCategories
+            cateList={cateList} 
+            updateCategory={updateCategory}
+            deleteCategory={deleteCategory}
+            backToAdminStart={backToAdminStart}
+            />}
+
         </div>
     )
 }
@@ -78,7 +115,11 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch) => {
     return {
         createCategory: (category) => dispatch(createCategory(category)),
-        createProduct: (product) => dispatch(createProduct(product))
+        createProduct: (product) => dispatch(createProduct(product)),
+        updateProduct: (product) => dispatch(updateProduct(product)),
+        deleteProduct: (product) => dispatch(deleteProduct(product)),
+        updateCategory: (category) => dispatch(updateCategory(category)),
+        deleteCategory: (category) => dispatch(deleteCategory(category))
     }
 }
 

@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import CategorySummary from './CategorySummary'
 
 
-const CateProducts = ({ cateList, backToAdminStart }) => {
+const CateProducts = ({ cateList, backToAdminStart, deleteCategory, updateCategory }) => {
 
     return (
         <Fragment>
@@ -14,7 +14,7 @@ const CateProducts = ({ cateList, backToAdminStart }) => {
                 {cateList && cateList.map(cate => {
                     console.log(cate)
                     return (
-                        <CategorySummary key={cate.id} cate={cate} />
+                        <CategorySummary key={cate.id} cate={cate} deleteCategory={deleteCategory} updateCategory={updateCategory} />
                     )
                 })}
             </ul>

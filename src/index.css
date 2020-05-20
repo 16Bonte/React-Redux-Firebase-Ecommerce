@@ -3,7 +3,7 @@ body {
   padding: 0;
   /* padding-left: 10%; */
   font-family: sans-serif;
-  background-color: lightgrey;
+  background-color: rgb(105, 0, 0);
 }
 
 form{
@@ -33,6 +33,21 @@ textarea.materialize-textarea:focus:not([readonly]){
   background-color: black;
 }
 
-.test {
-  color: #ec407a;
+#editAdminBlock {
+  margin-bottom: 5rem;
+}
+
+.collection {
+  border: none;
+}
+
+.collection-item {
+  border-left-color: transparent;
+}
+
+/* .homeDashLi {
+  height: 15vh;
+} */
+.homeDashLi:hover {
+  cursor: pointer;
 }
