@@ -1,11 +1,12 @@
 import React from 'react'
 
-const Planche = ({ prod }) => {
+const Planche = ({ prod, setOrderingStatus, setOrderContent, orderContent }) => {
 
     let { name, image, shortDescription, id, price } = prod
 
     let selectMenu = e => {
-        console.log(e.target.id)
+        setOrderContent({ ...orderContent, formula: name })
+        setOrderingStatus({selectFormula: false, selectSize: true})
     }
 
     return (
@@ -14,8 +15,8 @@ const Planche = ({ prod }) => {
                 <div className="card-image">
                     <img src={image} alt={name} />
                     <span className="card-title">{name}</span>
-                    <button onClick={selectMenu}  className="btn-floating halfway-fab waves-effect waves-light red">
-                        <i id={id} className="material-icons test">add</i>
+                    <button onClick={selectMenu} className="btn-floating halfway-fab waves-effect waves-light red">
+                        <i id={id} className="material-icons">add</i>
                     </button>
                 </div>
                 <div className="card-content">

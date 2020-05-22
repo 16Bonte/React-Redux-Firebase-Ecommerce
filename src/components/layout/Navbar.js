@@ -4,7 +4,7 @@ import SignedInLinks from './SignedInLinks'
 import SignedOutLinks from './SignedOutLinks'
 import { connect } from 'react-redux'
 
-const Navbar = ({ auth, profile }) => {
+const Navbar = ({ auth, profile, cart }) => {
 
     let links = auth.uid ? <SignedInLinks profile={profile} /> : <SignedOutLinks />
 
@@ -13,7 +13,11 @@ const Navbar = ({ auth, profile }) => {
             {auth.isLoaded &&
                 <nav className="nav-wrapper black">
                     <div className="container">
-                        <Link to='/' className='brand-logo'>LesSlipsDeMonPère</Link>
+                        <Link to='/' className='brand-logo'>Les Slips De Mon Père</Link>
+                        <Link to='cart'>
+                            <span className='right'>{cart.prodNumber}</span>
+                            <i className="material-icons right">shopping_cart</i>
+                        </Link>
                         {links}
                     </div>
                 </nav>
@@ -25,7 +29,8 @@ const Navbar = ({ auth, profile }) => {
 let mapStateToProps = (state) => {
     return {
         auth: state.firebase.auth,
-        profile: state.firebase.profile
+        profile: state.firebase.profile,
+        cart: state.cart
     }
 }
 
