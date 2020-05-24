@@ -1,5 +1,5 @@
 import React from 'react'
-import Product from '../Product'
+import Product from './Formula'
 
 let Main = ({ products, setOrderingStatus, setOrderContent, orderContent }) => {
 

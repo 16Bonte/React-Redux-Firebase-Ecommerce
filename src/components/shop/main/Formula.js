@@ -5,8 +5,8 @@ const Planche = ({ prod, setOrderingStatus, setOrderContent, orderContent }) => 
     let { name, image, shortDescription, id, price } = prod
 
     let selectMenu = e => {
-        setOrderContent({ ...orderContent, formula: name })
-        setOrderingStatus({selectFormula: false, selectSize: true})
+        setOrderContent({ ...orderContent, formula: prod, formulaPrice: parseInt(price) })
+        setOrderingStatus({ selectFormula: false, selectSize: true })
     }
 
     return (

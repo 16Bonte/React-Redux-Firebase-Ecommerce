@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 import Formulas from './main/Formulas'
-import BottleFormula from './main/BottleFormula'
+import BottleFormulas from './main/BottleFormulas'
 import SelectSize from './main/SelectSize'
-import AdditionalBottle from './options/AdditionalBottle'
+import AdditionalBottles from './options/AdditionalBottles'
 import AdditionalFood from './options/AdditionalFood'
 
 const Shop = ({ products, cart }) => {
@@ -20,14 +20,19 @@ const Shop = ({ products, cart }) => {
 
     let [orderContent, setOrderContent] = useState({
         formula: '',
-        quantity: 1,
-        size: '',
+        formulaPrice: 0,
+        size: 1,
         bottle: '',
-        moreDrink: '',
-        moreFood: ''
+        bottlePrice: 0,
+        moreDrink: [],
+        moreFood: [],
     })
 
     let { selectFormula, selectBottle, selectSize, selectMoreDrink, selectMoreFood } = orderingStatus
+
+    let { formulaPrice, size, foodQuantity, bottlePrice, moreFood } = orderContent
+
+    let total = Math.round(1000 * (formulaPrice + ((size - 1) * formulaPrice * 0.7) + bottlePrice )) / 1000
 
     let log = () => {
         console.log(orderContent)
@@ -35,35 +40,39 @@ const Shop = ({ products, cart }) => {
 
     return (
         <Fragment>
-            <h2 onClick={log}>Achète Stp</h2>
-            {selectFormula && 
-            <Formulas 
-            products={products} 
-            orderContent={orderContent}
-            setOrderingStatus={setOrderingStatus} 
-            setOrderContent={setOrderContent}
-            />}
-            {selectSize && 
-            <SelectSize 
-            orderContent={orderContent}
-            setOrderingStatus={setOrderingStatus}
-            setOrderContent={setOrderContent}
-            />}
-            {selectBottle && 
-            <BottleFormula 
-            setOrderingStatus={setOrderingStatus}
-            setOrderContent={setOrderContent}
-            />}
-            {selectMoreDrink && 
-            <AdditionalBottle 
-            setOrderingStatus={setOrderingStatus}
-            setOrderContent={setOrderContent}
-            />}
-            {selectMoreFood && 
-            <AdditionalFood 
-            setOrderingStatus={setOrderingStatus}
-            setOrderContent={setOrderContent}
-            />}
+            <h2 onClick={log}>Total: {total} euros</h2>
+            {selectFormula &&
+                <Formulas
+                    products={products}
+                    orderContent={orderContent}
+                    setOrderingStatus={setOrderingStatus}
+                    setOrderContent={setOrderContent}
+                />}
+            {selectSize &&
+                <SelectSize
+                    orderContent={orderContent}
+                    setOrderingStatus={setOrderingStatus}
+                    setOrderContent={setOrderContent}
+                />}
+            {selectBottle &&
+                <BottleFormulas
+                    orderContent={orderContent}
+                    setOrderingStatus={setOrderingStatus}
+                    setOrderContent={setOrderContent}
+                    products={products}
+                />}
+            {selectMoreDrink &&
+                <AdditionalBottles
+                    orderContent={orderContent}
+                    setOrderingStatus={setOrderingStatus}
+                    setOrderContent={setOrderContent}
+                    products={products}
+                />}
+            {selectMoreFood &&
+                <AdditionalFood
+                    setOrderingStatus={setOrderingStatus}
+                    setOrderContent={setOrderContent}
+                />}
         </Fragment>
     )
 }
