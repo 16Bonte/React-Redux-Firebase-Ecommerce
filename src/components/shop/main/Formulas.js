@@ -1,7 +1,7 @@
 import React from 'react'
 import Product from './Formula'
 
-let Main = ({ products, setOrderingStatus, setOrderContent, orderContent }) => {
+let Main = ({ products, setFormulaStatus, setOrderContent, orderContent }) => {
 
 
     return (
@@ -11,7 +11,7 @@ let Main = ({ products, setOrderingStatus, setOrderContent, orderContent }) => {
                     return (
                         <Product 
                         key={prod.id} prod={prod} 
-                        setOrderingStatus={setOrderingStatus}
+                        setFormulaStatus={setFormulaStatus}
                         setOrderContent={setOrderContent}
                         orderContent={orderContent}
                         />

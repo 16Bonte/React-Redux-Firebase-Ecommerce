@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-const BottleFormula = ({ name, price, orderContent, setOrderingStatus, setOrderContent }) => {
+const BottleFormula = ({ name, price, orderContent, setFormulaStatus, setOrderContent }) => {
+
+    useEffect(() => {
+        setOrderContent(
+            { ...orderContent, bottle: '', bottlePrice: 0 })
+    },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [])
 
     let chooseBottle = () => {
-        setOrderingStatus({ selectBottle: false, selectMoreDrink: true })
-        setOrderContent({ ...orderContent, bottle: name, bottlePrice: parseInt(price)})
+        setFormulaStatus({ selectBottle: false, selectMoreDrink: true })
+        setOrderContent({ ...orderContent, bottle: name, bottlePrice: parseInt(price) })
     }
 
     return (

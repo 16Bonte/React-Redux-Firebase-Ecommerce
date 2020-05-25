@@ -1,12 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-const Planche = ({ prod, setOrderingStatus, setOrderContent, orderContent }) => {
+const Planche = ({ prod, setFormulaStatus, setOrderContent, orderContent }) => {
 
     let { name, image, shortDescription, id, price } = prod
 
+    useEffect(() => {
+        setOrderContent({
+            formula: '',
+            formulaPrice: 0,
+            size: 1,
+            bottle: '',
+            bottlePrice: 0,
+            moreDrink: [],
+            moreDrinkTotal: 0,
+            moreFood: [],
+            moreFoodTotal: 0
+        })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     let selectMenu = e => {
         setOrderContent({ ...orderContent, formula: prod, formulaPrice: parseInt(price) })
-        setOrderingStatus({ selectFormula: false, selectSize: true })
+        setFormulaStatus({ selectFormula: false, selectSize: true })
     }
 
     return (

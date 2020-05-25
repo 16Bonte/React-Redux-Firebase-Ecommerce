@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SelectSize = ({ setOrderingStatus, orderContent, setOrderContent }) => {
+const SelectSize = ({ setFormulaStatus, orderContent, setOrderContent }) => {
 
     let { formula, size } = orderContent
 
@@ -8,7 +8,9 @@ const SelectSize = ({ setOrderingStatus, orderContent, setOrderContent }) => {
 
     let lessFood = () => setOrderContent({ ...orderContent, size: size - 0.5 })
 
-    let next = () => setOrderingStatus({ selectSize: false, selectBottle: true })
+    let previous = () => setFormulaStatus({ selectSize: false, selectFormula: true })
+
+    let next = () => setFormulaStatus({ selectSize: false, selectBottle: true })
 
     return (
         <div className='formulaSize'>
@@ -21,6 +23,7 @@ const SelectSize = ({ setOrderingStatus, orderContent, setOrderContent }) => {
             {formula.detail5Name && <h6>{formula.detail5Quantity * size} {formula.detail5Name}</h6>}
             <button onClick={moreFood}>+</button>
             {size > 1 && <button onClick={lessFood}>-</button>}
+            <button onClick={previous}>Précédent</button>
             <button onClick={next}>Suivant</button>
         </div>
     )

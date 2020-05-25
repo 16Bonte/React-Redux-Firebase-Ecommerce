@@ -1,16 +1,18 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
+import {addFormula} from '../../store/actions/cartActions'
+
 import Formulas from './main/Formulas'
 import BottleFormulas from './main/BottleFormulas'
 import SelectSize from './main/SelectSize'
 import AdditionalBottles from './options/AdditionalBottles'
-import AdditionalFood from './options/AdditionalFood'
+import AdditionalFoods from './options/AdditionalFoods'
 
-const Shop = ({ products, cart }) => {
+const Shop = ({ products, cart, addFormula }) => {
 
-    let [orderingStatus, setOrderingStatus] = useState({
+    let [formulaStatus, setFormulaStatus] = useState({
         selectFormula: true,
         selectSize: false,
         selectBottle: false,
@@ -25,53 +27,66 @@ const Shop = ({ products, cart }) => {
         bottle: '',
         bottlePrice: 0,
         moreDrink: [],
+        moreDrinkTotal: 0,
         moreFood: [],
+        moreFoodTotal: 0
     })
 
-    let { selectFormula, selectBottle, selectSize, selectMoreDrink, selectMoreFood } = orderingStatus
+    let { selectFormula, selectBottle, selectSize, selectMoreDrink, selectMoreFood } = formulaStatus
 
-    let { formulaPrice, size, foodQuantity, bottlePrice, moreFood } = orderContent
+    let { formulaPrice, size, bottlePrice, moreDrinkTotal, moreFoodTotal } = orderContent
 
-    let total = Math.round(1000 * (formulaPrice + ((size - 1) * formulaPrice * 0.7) + bottlePrice )) / 1000
+    let total = Math.round(1000 * (
+        formulaPrice + ((size - 1) * formulaPrice * 0.7) 
+        + bottlePrice 
+        + moreDrinkTotal 
+        + moreFoodTotal
+        )) / 1000
 
-    let log = () => {
-        console.log(orderContent)
-    }
+    useEffect(() => {
+        setOrderContent({...orderContent, total: total})
+        // let myOrder = orderContent
+        // addFormula(myOrder)
+    }, [formulaPrice, size, bottlePrice, moreDrinkTotal, moreFoodTotal])
 
     return (
         <Fragment>
-            <h2 onClick={log}>Total: {total} euros</h2>
+            <h2>Total: {total} euros</h2>
             {selectFormula &&
                 <Formulas
                     products={products}
                     orderContent={orderContent}
-                    setOrderingStatus={setOrderingStatus}
+                    setFormulaStatus={setFormulaStatus}
                     setOrderContent={setOrderContent}
                 />}
             {selectSize &&
                 <SelectSize
                     orderContent={orderContent}
-                    setOrderingStatus={setOrderingStatus}
+                    setFormulaStatus={setFormulaStatus}
                     setOrderContent={setOrderContent}
                 />}
             {selectBottle &&
                 <BottleFormulas
                     orderContent={orderContent}
-                    setOrderingStatus={setOrderingStatus}
+                    setFormulaStatus={setFormulaStatus}
                     setOrderContent={setOrderContent}
                     products={products}
                 />}
             {selectMoreDrink &&
                 <AdditionalBottles
                     orderContent={orderContent}
-                    setOrderingStatus={setOrderingStatus}
+                    setFormulaStatus={setFormulaStatus}
                     setOrderContent={setOrderContent}
                     products={products}
                 />}
             {selectMoreFood &&
-                <AdditionalFood
-                    setOrderingStatus={setOrderingStatus}
+                <AdditionalFoods
+                    orderContent={orderContent}
+                    setFormulaStatus={setFormulaStatus}
                     setOrderContent={setOrderContent}
+                    products={products}
+                    total={total}
+                    addFormula={addFormula}
                 />}
         </Fragment>
     )
@@ -84,6 +99,12 @@ let mapStateToProp = (state) => {
     }
 }
 
-export default compose(connect(mapStateToProp), firestoreConnect([
+let mapDispatchToProps = dispatch => {
+    return {
+        addFormula: (formula) => dispatch(addFormula(formula))
+    }
+}
+
+export default compose(connect(mapStateToProp, mapDispatchToProps), firestoreConnect([
     { collection: 'products' }
 ]))(Shop)

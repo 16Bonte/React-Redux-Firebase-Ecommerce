@@ -1,7 +1,9 @@
 import React from 'react'
 import BottleFormula from './BottleFormula'
 
-const BottleFormulas = ({ products, orderContent, setOrderingStatus, setOrderContent }) => {
+const BottleFormulas = ({ products, orderContent, setFormulaStatus, setOrderContent }) => {
+
+    let previous = () => setFormulaStatus({selectBottle: false, selectSize: true})
 
     return (
         <div>
@@ -12,14 +14,16 @@ const BottleFormulas = ({ products, orderContent, setOrderingStatus, setOrderCon
                             <BottleFormula
                                 name={product.name}
                                 price={product.price}
-                                setOrderingStatus={setOrderingStatus}
                                 setOrderContent={setOrderContent}
                                 orderContent={orderContent}
+                                setFormulaStatus={setFormulaStatus}
                             />
                         </div>
                     )
                 }
+                return null
             })}
+            <button onClick={previous}>Précédent</button>
         </div>
     ) 
 }
