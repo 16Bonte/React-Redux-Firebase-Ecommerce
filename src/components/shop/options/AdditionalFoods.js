@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import AdditionalFood from './AdditionalFood'
 
 const AdditionalFoods = ({ products, orderContent, setFormulaStatus, setOrderContent, total, addFormula }) => {

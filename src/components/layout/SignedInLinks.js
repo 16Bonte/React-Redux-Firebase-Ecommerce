@@ -1,22 +1,22 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { signOut } from '../../store/actions/authActions'
 
-const SignedInLinks = ({signOut, profile}) => {
+const SignedInLinks = ({signOut, profile, fadeLinks}) => {
 
     return (
-        <ul className="right">
-            <li><NavLink to='/'>Accueil</NavLink></li>
-            <li><NavLink to='/boutique'>Nos Produits</NavLink></li>
-            <li><NavLink to='/a-propos'>À Propos</NavLink></li>
+        <Fragment>
+            <li className={fadeLinks}><NavLink to='/'>Accueil</NavLink></li>
+            <li className={fadeLinks}><NavLink to='/boutique'>Nos Produits</NavLink></li>
+            <li className={fadeLinks}><NavLink to='/a-propos'>À Propos</NavLink></li>
             <li onClick={signOut}>Déconnexion</li>
             <li>
                 <NavLink to='/' className='btn btn-floating white black-text lighten-1'>
                     {profile.initials}
                 </NavLink>
             </li>
-        </ul>
+        </Fragment>
     )
 }
 

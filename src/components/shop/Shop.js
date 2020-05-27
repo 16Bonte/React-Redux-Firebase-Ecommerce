@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
-import {addFormula} from '../../store/actions/cartActions'
+import { addFormula } from '../../store/actions/cartActions'
 
 import Formulas from './main/Formulas'
 import BottleFormulas from './main/BottleFormulas'
@@ -37,16 +37,15 @@ const Shop = ({ products, cart, addFormula }) => {
     let { formulaPrice, size, bottlePrice, moreDrinkTotal, moreFoodTotal } = orderContent
 
     let total = Math.round(1000 * (
-        formulaPrice + ((size - 1) * formulaPrice * 0.7) 
-        + bottlePrice 
-        + moreDrinkTotal 
+        formulaPrice + ((size - 1) * formulaPrice * 0.7)
+        + bottlePrice
+        + moreDrinkTotal
         + moreFoodTotal
-        )) / 1000
+    )) / 1000
 
     useEffect(() => {
-        setOrderContent({...orderContent, total: total})
-        // let myOrder = orderContent
-        // addFormula(myOrder)
+        setOrderContent({ ...orderContent, total: total })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [formulaPrice, size, bottlePrice, moreDrinkTotal, moreFoodTotal])
 
     return (
