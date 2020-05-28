@@ -14,18 +14,14 @@ let App = () => {
   return (
     <BrowserRouter>
       <NavBar />
-      {/* <Nav /> */}
       <div className="App">
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/boutique' component={Shop} />
           <Route exact path='/a-propos' component={About} />
-
           <Route exact path='/signin' component={SignIn} />
           <Route exact path='/signup' component={SignUp} />
-
           <Route exact path='/admin' component={AdminDashboard} />
-
         </Switch>
       </div>
     </BrowserRouter>

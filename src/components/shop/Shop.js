@@ -4,16 +4,22 @@ import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 import { addFormula } from '../../store/actions/cartActions'
 
+import Recap from './Recap'
+
+import DayHour from './details/DayHour'
 import Formulas from './main/Formulas'
 import BottleFormulas from './main/BottleFormulas'
 import SelectSize from './main/SelectSize'
 import AdditionalBottles from './options/AdditionalBottles'
 import AdditionalFoods from './options/AdditionalFoods'
+import Zip from './details/Zip'
 
 const Shop = ({ products, cart, addFormula }) => {
 
     let [formulaStatus, setFormulaStatus] = useState({
-        selectFormula: true,
+        selectShift: true,
+        selectZip: false,
+        selectFormula: false,
         selectSize: false,
         selectBottle: false,
         selectMoreDrink: false,
@@ -21,6 +27,8 @@ const Shop = ({ products, cart, addFormula }) => {
     })
 
     let [orderContent, setOrderContent] = useState({
+        shift: '',
+        zip: '',
         formula: '',
         formulaPrice: 0,
         size: 1,
@@ -32,7 +40,7 @@ const Shop = ({ products, cart, addFormula }) => {
         moreFoodTotal: 0
     })
 
-    let { selectFormula, selectBottle, selectSize, selectMoreDrink, selectMoreFood } = formulaStatus
+    let { selectShift, selectZip, selectFormula, selectBottle, selectSize, selectMoreDrink, selectMoreFood } = formulaStatus
 
     let { formulaPrice, size, bottlePrice, moreDrinkTotal, moreFoodTotal } = orderContent
 
@@ -50,43 +58,65 @@ const Shop = ({ products, cart, addFormula }) => {
 
     return (
         <Fragment>
-            <h2>Total: {total} euros</h2>
+            {selectShift &&
+                <DayHour
+                    products={products}
+                    orderContent={orderContent}
+                    setOrderContent={setOrderContent}
+                    setFormulaStatus={setFormulaStatus}
+                />}
+            {selectZip &&
+                <Zip
+                    products={products}
+                    orderContent={orderContent}
+                    setFormulaStatus={setFormulaStatus}
+                    setOrderContent={setOrderContent}
+                />}
             {selectFormula &&
                 <Formulas
                     products={products}
                     orderContent={orderContent}
                     setFormulaStatus={setFormulaStatus}
                     setOrderContent={setOrderContent}
+                    cart={cart}
                 />}
-            {selectSize &&
-                <SelectSize
-                    orderContent={orderContent}
-                    setFormulaStatus={setFormulaStatus}
-                    setOrderContent={setOrderContent}
-                />}
-            {selectBottle &&
-                <BottleFormulas
-                    orderContent={orderContent}
-                    setFormulaStatus={setFormulaStatus}
-                    setOrderContent={setOrderContent}
-                    products={products}
-                />}
-            {selectMoreDrink &&
-                <AdditionalBottles
-                    orderContent={orderContent}
-                    setFormulaStatus={setFormulaStatus}
-                    setOrderContent={setOrderContent}
-                    products={products}
-                />}
-            {selectMoreFood &&
-                <AdditionalFoods
-                    orderContent={orderContent}
-                    setFormulaStatus={setFormulaStatus}
-                    setOrderContent={setOrderContent}
-                    products={products}
-                    total={total}
-                    addFormula={addFormula}
-                />}
+            <div className='shopContainer'>
+                {selectSize &&
+                    <SelectSize
+                        orderContent={orderContent}
+                        setFormulaStatus={setFormulaStatus}
+                        setOrderContent={setOrderContent}
+                    />}
+                {selectBottle &&
+                    <BottleFormulas
+                        orderContent={orderContent}
+                        setFormulaStatus={setFormulaStatus}
+                        setOrderContent={setOrderContent}
+                        products={products}
+                    />}
+                {selectMoreDrink &&
+                    <AdditionalBottles
+                        orderContent={orderContent}
+                        setFormulaStatus={setFormulaStatus}
+                        setOrderContent={setOrderContent}
+                        products={products}
+                    />}
+                {selectMoreFood &&
+                    <AdditionalFoods
+                        orderContent={orderContent}
+                        setFormulaStatus={setFormulaStatus}
+                        setOrderContent={setOrderContent}
+                        products={products}
+                        total={total}
+                        addFormula={addFormula}
+                    />}
+                {(!selectFormula && !selectShift && !selectZip) &&
+                    <Recap
+                        orderContent={orderContent}
+                        total={total}
+                    />
+                }
+            </div>
         </Fragment>
     )
 }

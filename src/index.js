@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import "./index.scss";
 import App from "./App";
-import * as serviceWorker from "./serviceWorker";
 import { createStore, applyMiddleware, compose } from "redux";
 import rootReducer from "./store/reducer/rootReducer";
 import { Provider, useSelector } from "react-redux";
@@ -57,4 +56,3 @@ ReactDOM.render(
   </Provider>, document.getElementById('root')
 );
 
-serviceWorker.unregister();

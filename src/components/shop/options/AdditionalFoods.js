@@ -14,7 +14,6 @@ const AdditionalFoods = ({ products, orderContent, setFormulaStatus, setOrderCon
         <div>
             {products.map((product, index) => {
                 if (product.category === 'addFood') {
-                    console.log(product)
                     return (
                         <div className='card' key={index}>
                             <AdditionalFood

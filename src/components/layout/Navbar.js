@@ -27,9 +27,9 @@ const Navbar = ({ auth, profile, cart }) => {
                         <div className="line"></div>
                     </div>
                     <ul className={`nav-links ${open}`} onClick={handleHamburger}>
+                        <img className='logo' src={logo} alt="logo"/>
                         <li className={fadeLinks}><NavLink to='/'>Accueil</NavLink></li>
                         <li className={fadeLinks}><NavLink to='/boutique'>Nos Produits</NavLink></li>
-                        <img className='logo' src={logo} alt="logo"/>
                         <li className={fadeLinks}><NavLink to='/a-propos'>À Propos</NavLink></li>
                         {auth.uid ?
                             <li className={fadeLinks}><NavLink to='/mon-compte'>Mon Compte

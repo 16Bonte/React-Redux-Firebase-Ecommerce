@@ -14,6 +14,7 @@ const AdditionalFood = ({ name, price, index, orderContent, setOrderContent }) =
             moreFood: thatFoodArr,
             moreFoodTotal: orderContent.moreFoodTotal + parseInt(price)
         })
+        console.log(orderContent)
     }
 
     let removeFood = e => {

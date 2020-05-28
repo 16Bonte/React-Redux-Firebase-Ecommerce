@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import ScrollAnimation from 'react-animate-on-scroll';
 
 const Planche = ({ prod, setFormulaStatus, setOrderContent, orderContent }) => {
 
@@ -6,6 +7,7 @@ const Planche = ({ prod, setFormulaStatus, setOrderContent, orderContent }) => {
 
     useEffect(() => {
         setOrderContent({
+            ...orderContent,
             formula: '',
             formulaPrice: 0,
             size: 1,
@@ -26,20 +28,24 @@ const Planche = ({ prod, setFormulaStatus, setOrderContent, orderContent }) => {
 
     return (
         <div className="col s12 m4">
-            <div className="card">
-                <div className="card-image">
-                    <img src={image} alt={name} />
-                    <span className="card-title">{name}</span>
-                    <button onClick={selectMenu} className="btn-floating halfway-fab waves-effect waves-light red">
-                        <i id={id} className="material-icons">add</i>
-                    </button>
+            <ScrollAnimation delay={500} animateIn="animate__zoomInDown">
+                <div className="card">
+                    <div className="card-image">
+                        <img src={image} alt={name} />
+                        <span className="card-title">{name}</span>
+                        <button onClick={selectMenu} className="btn-floating halfway-fab waves-effect waves-light red">
+                            <i id={id} className="material-icons">add</i>
+                        </button>
+                    </div>
+                    <div className="card-content">
+                        <p>{shortDescription}</p>
+                        <h5>{price} €</h5>
+                    </div>
                 </div>
-                <div className="card-content">
-                    <p>{shortDescription}</p>
-                    <h5>{price} €</h5>
-                </div>
-            </div>
+            </ScrollAnimation>
         </div>
+    
+
     )
 }
 
