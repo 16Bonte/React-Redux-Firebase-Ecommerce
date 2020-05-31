@@ -27,8 +27,8 @@ const Shop = ({ products, cart, addFormula }) => {
     })
 
     let [orderContent, setOrderContent] = useState({
-        shift: '',
-        zip: '',
+        hour: '',
+        day: '',
         formula: '',
         formulaPrice: 0,
         size: 1,
@@ -65,22 +65,22 @@ const Shop = ({ products, cart, addFormula }) => {
                     setOrderContent={setOrderContent}
                     setFormulaStatus={setFormulaStatus}
                 />}
-            {selectZip &&
-                <Zip
-                    products={products}
-                    orderContent={orderContent}
-                    setFormulaStatus={setFormulaStatus}
-                    setOrderContent={setOrderContent}
-                />}
-            {selectFormula &&
-                <Formulas
-                    products={products}
-                    orderContent={orderContent}
-                    setFormulaStatus={setFormulaStatus}
-                    setOrderContent={setOrderContent}
-                    cart={cart}
-                />}
             <div className='shopContainer'>
+                {selectZip &&
+                    <Zip
+                        products={products}
+                        orderContent={orderContent}
+                        setFormulaStatus={setFormulaStatus}
+                        setOrderContent={setOrderContent}
+                    />}
+                {selectFormula &&
+                    <Formulas
+                        products={products}
+                        orderContent={orderContent}
+                        setFormulaStatus={setFormulaStatus}
+                        setOrderContent={setOrderContent}
+                        cart={cart}
+                    />}
                 {selectSize &&
                     <SelectSize
                         orderContent={orderContent}
@@ -107,10 +107,9 @@ const Shop = ({ products, cart, addFormula }) => {
                         setFormulaStatus={setFormulaStatus}
                         setOrderContent={setOrderContent}
                         products={products}
-                        total={total}
                         addFormula={addFormula}
                     />}
-                {(!selectFormula && !selectShift && !selectZip) &&
+                {(!selectShift) &&
                     <Recap
                         orderContent={orderContent}
                         total={total}

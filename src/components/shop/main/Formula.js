@@ -28,7 +28,7 @@ const Planche = ({ prod, setFormulaStatus, setOrderContent, orderContent }) => {
 
     return (
         <div className="col s12 m4">
-            <ScrollAnimation delay={500} animateIn="animate__zoomInDown">
+            <ScrollAnimation animateIn="animate__zoomInDown">
                 <div className="card">
                     <div className="card-image">
                         <img src={image} alt={name} />

@@ -1,17 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AdditionalFood from './AdditionalFood'
+import FadeIn from 'react-fade-in'
+import { Redirect } from 'react-router-dom'
 
-const AdditionalFoods = ({ products, orderContent, setFormulaStatus, setOrderContent, total, addFormula }) => {
+const AdditionalFoods = ({ products, orderContent, setFormulaStatus, setOrderContent, addFormula }) => {
+
+    let [goToCart, setGoToCart] = useState(false)
 
     let previous = () => setFormulaStatus({ selectMoreFood: false, selectMoreDrink: true })
 
     let addToCart = () => {
-        addFormula(orderContent)        
-        setFormulaStatus({ selectMoreFood: false, selectFormula: true })
+        addFormula(orderContent)
+        // setFormulaStatus({ selectMoreFood: false, selectFormula: true })
+        setGoToCart(true)
     }
 
+    if (goToCart) return <Redirect to='/pannier' />
+
     return (
-        <div>
+        <FadeIn>
             {products.map((product, index) => {
                 if (product.category === 'addFood') {
                     return (
@@ -31,7 +38,7 @@ const AdditionalFoods = ({ products, orderContent, setFormulaStatus, setOrderCon
             <button onClick={previous}>Next</button>
             <button onClick={addToCart}>Ajouter ma formule au pannier</button>
 
-        </div>
+        </FadeIn>
     )
 }
 

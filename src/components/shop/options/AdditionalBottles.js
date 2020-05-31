@@ -1,14 +1,17 @@
 import React from 'react'
 import AdditionalBottle from './AdditionalBottle'
+import FadeIn from 'react-fade-in'
 
 const AdditionalBottles = ({ products, orderContent, setFormulaStatus, setOrderContent }) => {
-   
+
     let next = () => setFormulaStatus({ selectMoreDrink: false, selectMoreFood: true })
 
-    let previous = () => setFormulaStatus({selectMoreDrink: false, selectBottle: true})
+    let previous = () => setFormulaStatus({ selectMoreDrink: false, selectBottle: true })
 
     return (
-        <div>
+        <FadeIn>
+            <h4 className='shoppingProcessTitle'>Pour Nos Tizeurs d'élites</h4>
+            <h5 className='shoppingProcessTitle'>Bouteilles Supplémentaires</h5>
             {products.map((product, index) => {
                 if (product.category === 'bottleChoice') {
                     console.log(product)
@@ -29,7 +32,7 @@ const AdditionalBottles = ({ products, orderContent, setFormulaStatus, setOrderC
             <button onClick={previous}>Précédent</button>
             <button onClick={next}>Suivant</button>
 
-        </div>
+        </FadeIn>
     )
 }
 

@@ -4,9 +4,10 @@ import FadeIn from 'react-fade-in';
 
 const Recap = ({ orderContent, total }) => {
 
-    let { formula, size, bottle, bottlePrice, moreDrink, moreFood } = orderContent
+    let {day, hour, zip, formula, size, bottle, bottlePrice, moreDrink, moreFood } = orderContent
 
     let {
+        name,
         detail1Name,
         detail1Quantity,
         detail2Name,
@@ -22,7 +23,9 @@ const Recap = ({ orderContent, total }) => {
     return (
         <FadeIn delay={100}>
             <div className='formulaCart'>
-                <h4>{formula.name}</h4>
+                <h4>{day}</h4>
+                <h5>{hour} <br/> {zip}</h5>
+                <h4>{name}</h4>
                 {detail1Name &&
                     <FadeIn delay={100}>
                         <li>{detail1Quantity * size} {detail1Name} </li>
