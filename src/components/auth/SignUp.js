@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { signUp } from '../../store/actions/authActions'
 
-let SignUp = ({ signUp, auth, authError }) => {
+let SignUp = ({ signUp, auth, authError, cart }) => {
 
     let [user, setUser] = useState({
         email: '',
@@ -18,6 +18,8 @@ let SignUp = ({ signUp, auth, authError }) => {
         e.preventDefault()
         signUp(user)
     }
+
+    if ((cart.products.length > 0) && (auth.uid)) return <Redirect to='/pannier' />
 
     if (auth.uid) return <Redirect to='/' />
 
@@ -56,7 +58,8 @@ let SignUp = ({ signUp, auth, authError }) => {
 let mapStateToProps = (state) => {
     return {
         auth: state.firebase.auth,
-        authError: state.auth.authError
+        authError: state.auth.authError,
+        cart: state.cart
     }
 }
 

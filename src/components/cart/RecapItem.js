@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CartItem = ({ item, removeFormula, index }) => {
+const RecapItem = ({ item }) => {
 
     let {
         formula,
@@ -9,7 +9,6 @@ const CartItem = ({ item, removeFormula, index }) => {
         bottlePrice,
         moreDrink,
         moreFood,
-        total
     } = item
 
     let {
@@ -24,8 +23,6 @@ const CartItem = ({ item, removeFormula, index }) => {
         detail5Quantity,
         detail5Name
     } = formula
-
-    let deleteProduct = () => removeFormula(index)
 
     return (
         <div>
@@ -50,10 +47,10 @@ const CartItem = ({ item, removeFormula, index }) => {
                 }
                 return null
             })}
-            <h5>Total de la formule: {total}</h5>
-            <button onClick={deleteProduct}>Supprimer cette formule</button>
+
+
         </div>
     )
 }
 
-export default CartItem
+export default RecapItem

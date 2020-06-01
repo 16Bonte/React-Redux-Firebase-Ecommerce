@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
+import { setShift } from '../../store/actions/cartActions'
 import { addFormula } from '../../store/actions/cartActions'
 
 import Recap from './Recap'
@@ -14,7 +15,7 @@ import AdditionalBottles from './options/AdditionalBottles'
 import AdditionalFoods from './options/AdditionalFoods'
 import Zip from './details/Zip'
 
-const Shop = ({ products, cart, addFormula }) => {
+const Shop = ({ products, cart, addFormula, setShift }) => {
 
     let [formulaStatus, setFormulaStatus] = useState({
         selectShift: true,
@@ -64,6 +65,7 @@ const Shop = ({ products, cart, addFormula }) => {
                     orderContent={orderContent}
                     setOrderContent={setOrderContent}
                     setFormulaStatus={setFormulaStatus}
+                    setShift={setShift}
                 />}
             <div className='shopContainer'>
                 {selectZip &&
@@ -129,7 +131,8 @@ let mapStateToProp = (state) => {
 
 let mapDispatchToProps = dispatch => {
     return {
-        addFormula: (formula) => dispatch(addFormula(formula))
+        addFormula: (formula) => dispatch(addFormula(formula)),
+        setShift: (shift) => dispatch(setShift(shift))
     }
 }
 

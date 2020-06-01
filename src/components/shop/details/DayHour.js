@@ -4,7 +4,7 @@ import 'moment/locale/fr'
 import FadeIn from 'react-fade-in'
 
 
-let DayHour = ({ setFormulaStatus, orderContent, setOrderContent }) => {
+let DayHour = ({ setFormulaStatus, orderContent, setOrderContent, setShift }) => {
 
 
     useEffect(() => {
@@ -26,6 +26,7 @@ let DayHour = ({ setFormulaStatus, orderContent, setOrderContent }) => {
 
     let chooseShift = e => {
         setOrderContent({ ...orderContent, hour: e.target.id, day: e.target.name })
+        setShift({hour: e.target.id, day: e.target.name})
         setFormulaStatus({ selectDayHour: false, selectZip: true })
     }
 
