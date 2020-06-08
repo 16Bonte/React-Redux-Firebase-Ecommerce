@@ -25,8 +25,9 @@ let DayHour = ({ setFormulaStatus, orderContent, setOrderContent, setShift }) =>
     }, [])
 
     let chooseShift = e => {
-        setOrderContent({ ...orderContent, hour: e.target.id, day: e.target.name })
-        setShift({hour: e.target.id, day: e.target.name})
+        console.log(e.target.value)
+        setOrderContent({ ...orderContent, hour: e.target.id, day: e.target.name, formatedDay: e.target.value })
+        setShift({hour: e.target.id, day: e.target.name, formatedDay: e.target.value})
         setFormulaStatus({ selectDayHour: false, selectZip: true })
     }
 
@@ -36,7 +37,8 @@ let DayHour = ({ setFormulaStatus, orderContent, setOrderContent, setShift }) =>
         let capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1)
 
         for (let i = 0; i < 8; i++) {
-
+            let formatedDay = moment().add(i, 'days').format()
+            console.log(formatedDay)
             let day = capitalize(moment().add(i, 'days').format('LLLL').slice(0, -11))
             let actualHour = new Date().getHours()
             console.log(actualHour)
@@ -46,11 +48,11 @@ let DayHour = ({ setFormulaStatus, orderContent, setOrderContent, setShift }) =>
                 options.push(
                     <span className='dateColumn' key={i}>
                         <h5 className='dayTitle'>{day}</h5>
-                        {actualHour < 17 && <button onClick={chooseShift} id='17h - 17h45' name={day} className='chooseHour'>17h - 17h45</button>}
-                        {actualHour < 18 && <button onClick={chooseShift} id='17h45 - 19h' name={day} className='chooseHour'>17h45 - 19h</button>}
-                        {actualHour < 19 && <button onClick={chooseShift} id='19h - 19h45' name={day} className='chooseHour'>19h - 19h45</button>}
-                        {actualHour < 20 && <button onClick={chooseShift} id='19h45 - 20h30' name={day} className='chooseHour'>19h45 - 20h30</button>}
-                        {actualHour < 20 && <button onClick={chooseShift} id='20h30 - 21h15' name={day} className='chooseHour'>20h30 - 21h15</button>}
+                        {actualHour < 17 && <button onClick={chooseShift} value={formatedDay} id='17h - 17h45' name={day} className='chooseHour'>17h - 17h45</button>}
+                        {actualHour < 18 && <button onClick={chooseShift} value={formatedDay} id='17h45 - 19h' name={day} className='chooseHour'>17h45 - 19h</button>}
+                        {actualHour < 19 && <button onClick={chooseShift} value={formatedDay} id='19h - 19h45' name={day} className='chooseHour'>19h - 19h45</button>}
+                        {actualHour < 20 && <button onClick={chooseShift} value={formatedDay} id='19h45 - 20h30' name={day} className='chooseHour'>19h45 - 20h30</button>}
+                        {actualHour < 20 && <button onClick={chooseShift} value={formatedDay} id='20h30 - 21h15' name={day} className='chooseHour'>20h30 - 21h15</button>}
                     </span>
                 )
                 // IF WORKING DAY ELSE THAN TODAY, PROPOSE ALL SHIFTS
@@ -58,11 +60,11 @@ let DayHour = ({ setFormulaStatus, orderContent, setOrderContent, setShift }) =>
                 options.push(
                     <span className='dateColumn' key={i}>
                         <h5 className='dayTitle'>{day}</h5>
-                        <button onClick={chooseShift} id='17h - 17h45' name={day} className='chooseHour'>17h - 17h45</button>
-                        <button onClick={chooseShift} id='17h45 - 19h' name={day} className='chooseHour'>17h45 - 19h</button>
-                        <button onClick={chooseShift} id='19h - 19h45' name={day} className='chooseHour'>19h - 19h45</button>
-                        <button onClick={chooseShift} id='19h45 - 20h30' name={day} className='chooseHour'>19h45 - 20h30</button>
-                        <button onClick={chooseShift} id='20h30 - 21h15' name={day} className='chooseHour'>20h30 - 21h15</button>
+                        <button onClick={chooseShift} value={formatedDay} id='17h - 17h45' name={day} className='chooseHour'>17h - 17h45</button>
+                        <button onClick={chooseShift} value={formatedDay} id='17h45 - 19h' name={day} className='chooseHour'>17h45 - 19h</button>
+                        <button onClick={chooseShift} value={formatedDay} id='19h - 19h45' name={day} className='chooseHour'>19h - 19h45</button>
+                        <button onClick={chooseShift} value={formatedDay} id='19h45 - 20h30' name={day} className='chooseHour'>19h45 - 20h30</button>
+                        <button onClick={chooseShift} value={formatedDay} id='20h30 - 21h15' name={day} className='chooseHour'>20h30 - 21h15</button>
                     </span>
                 )
             }

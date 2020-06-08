@@ -30,7 +30,7 @@ let initState = {
     prodNumber: 1,
     total: 53.8
 }
-
+ 
 let cartReducer = (state = initState, action) => {
     switch (action.type) {
         case ('SET_SHIFT'):

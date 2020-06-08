@@ -10,7 +10,21 @@ const AdditionalFoods = ({ products, orderContent, setFormulaStatus, setOrderCon
     let previous = () => setFormulaStatus({ selectMoreFood: false, selectMoreDrink: true })
 
     let addToCart = () => {
-        addFormula(orderContent)
+        // format additional food and drinks - we use index to add or remove some so it makes undefined arrays - not ok with firebase
+        let myFormula = orderContent
+        let myAdditionalBottles = []
+        let myAdditionalFoods = []
+        orderContent.moreDrink.forEach(drink => {
+            if (drink) myAdditionalBottles.push(drink)
+        })
+        orderContent.moreFood.forEach(food => {
+            if (food) myAdditionalFoods.push(food)
+        })
+        myFormula.moreDrink = myAdditionalBottles
+        myFormula.moreFood = myAdditionalFoods
+        console.log(myFormula)
+
+        addFormula(myFormula)
         // setFormulaStatus({ selectMoreFood: false, selectFormula: true })
         setGoToCart(true)
     }

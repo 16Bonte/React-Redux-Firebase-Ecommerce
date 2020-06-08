@@ -30,6 +30,7 @@ const Shop = ({ products, cart, addFormula, setShift }) => {
     let [orderContent, setOrderContent] = useState({
         hour: '',
         day: '',
+        formatedDay: '',
         formula: '',
         formulaPrice: 0,
         size: 1,

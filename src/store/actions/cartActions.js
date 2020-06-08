@@ -15,3 +15,17 @@ export let removeFormula = (index) => {
         dispatch({type: 'REMOVE_FROM_CART', payload: index})
     }
 }
+
+export let addToPastOrders = (data) => {
+    return (dispatch, getState, {getFirestore}) => {
+        let firestore = getFirestore()
+
+        firestore.collection(`users/${data.userId}/orders`).add({
+            ...data.myOrder
+        }).then(() =>{
+            console.log('goood')
+        }).catch((err) => {
+            alert(err)
+        })
+    }
+}
