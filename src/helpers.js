@@ -1,8 +1,7 @@
 const API = 'http://localhost:3333';
 
-/**
- * A helper function to fetch data from your API.
- */
+ // A helper function to fetch data from the API
+ 
 export async function fetchFromAPI(endpointURL, opts) {
   const { method, body } = { method: 'POST', body: null, ...opts };
 

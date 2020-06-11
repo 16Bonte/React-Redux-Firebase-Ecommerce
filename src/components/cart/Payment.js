@@ -26,24 +26,49 @@ let Payments = ({ paymentIntent, setPaymentIntent, products, total, setCartStatu
       console.error(error);
       error.payment_intent && setPaymentIntent(error.payment_intent);
     } else {
-      console.log(updatedPaymentIntent)
       setPaymentIntent(updatedPaymentIntent);
-        // format formula list - we use index to add or remove some so it makes undefined arrays - not ok with firebase
+      // format formula list - we use index to add or remove some so it makes undefined arrays - not ok with firebase
       let myProducts = []
+
       products.forEach(product => {
-        if (product) myProducts.push(product)
+        if (product) {
+          let myFormula = {
+            productId: product.formula.id,
+            formulaSize: product.size,
+            bottle: product.bottle,
+            bottlePrice: product.bottlePrice,
+            moreDrink: product.moreDrink,
+            moreDrinkTotal: product.moreDrinkTotal,
+            moreFood: product.moreFood,
+            moreFoodTotal: product.moreFoodTotal,
+            total: product.total,
+          }
+          myProducts.push(myFormula)
+        }
       })
-      
+
       let data = {
         myOrder: {
           products: myProducts,
           total: cart.total,
-          shift: cart.shift.formatedDay
+          delivery: {
+            formatedDay: cart.shift.formatedDay,
+            day: cart.shift.day,
+            hour: cart.shift.hour,
+            firstName: userInfo.firstName,
+            lastName: userInfo.lastName,
+            address: userInfo.address,
+            zip: userInfo.zip,
+            phone: userInfo.phone,
+            moreInfo: userInfo.moreInfo,
+          },
+          status: 'pending'
         },
         userId: auth.uid
       }
       console.log(data)
       addToPastOrders(data)
+      setCartStatus({ payment: false, paymentSucceeded: true })
       // NEED TO SEND CONFIRMATION MAIL !!!!!!!!!!!
     }
   };

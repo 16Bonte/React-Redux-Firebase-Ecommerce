@@ -8,10 +8,11 @@ import { compose } from 'redux'
 import { createCategory, updateCategory, deleteCategory } from '../../store/actions/categoriesActions'
 import { createProduct, updateProduct, deleteProduct } from '../../store/actions/productsActions'
 
-import AddProduct from './AddProduct'
-import AddCategory from './AddCategory'
-import ListProducts from './ListProducts'
-import ListCategories from './ListCategories'
+import AddProduct from './products/AddProduct'
+import AddCategory from './categories/AddCategory'
+import ListProducts from './products/ListProducts'
+import ListCategories from './categories/ListCategories'
+import OrderList from './orders/OrderList'
 
 const Dashboard = (state) => {
 
@@ -24,7 +25,8 @@ const Dashboard = (state) => {
         updateProduct,
         deleteProduct,
         updateCategory,
-        deleteCategory
+        deleteCategory,
+        orders
     } = state
 
     let [action, setAction] = useState({
@@ -32,14 +34,11 @@ const Dashboard = (state) => {
         newProduct: false,
         newCategory: false,
         productsList: false,
-        categoriesList: false
+        categoriesList: false,
+        orderList: false
     })
 
-    let handleAction = e => {
-        console.log(e.target.id)
-        setAction({ ...action, start: false, [e.target.id]: true })
-        console.log(action)
-    }
+    let handleAction = e => setAction({ ...action, start: false, [e.target.id]: true })
 
     let backToAdminStart = () => {
         setAction({
@@ -50,12 +49,11 @@ const Dashboard = (state) => {
             categoriesList: false,
             start: true
         })
-        console.log('yes sir')
     }
 
-    let { start, newProduct, newCategory, productsList, categoriesList } = action
+    let { start, newProduct, newCategory, productsList, categoriesList, orderList } = action
 
-    if (auth.uid !== 'eu6rVKlmubWA5vwUlXnuMYclSmJ3') return <Redirect to='/' />
+    if (auth.uid !== process.env.REACT_APP_ADMIN) return <Redirect to='/' />
 
 
     return (
@@ -68,37 +66,44 @@ const Dashboard = (state) => {
                         <div className="collection-item homeDashLi" id='newCategory' onClick={handleAction}>Ajouter une Catégorie</div>
                         <div className="collection-item homeDashLi" id='productsList' onClick={handleAction}>Liste des produits</div>
                         <div className="collection-item homeDashLi" id='categoriesList' onClick={handleAction}>Liste des catégories</div>
+                        <div className="collection-item homeDashLi" id='orderList' onClick={handleAction}>Liste des commandes</div>
                     </div>
                 </Fragment>
             }
-            {newProduct && 
-            <AddProduct 
-            createProduct={createProduct} 
-            cateList={cateList} 
-            backToAdminStart={backToAdminStart} 
-            />}
+            {newProduct &&
+                <AddProduct
+                    createProduct={createProduct}
+                    cateList={cateList}
+                    backToAdminStart={backToAdminStart}
+                />}
 
-            {newCategory && 
-            <AddCategory 
-            createCategory={createCategory} 
-            backToAdminStart={backToAdminStart} 
-            />}
+            {newCategory &&
+                <AddCategory
+                    createCategory={createCategory}
+                    backToAdminStart={backToAdminStart}
+                />}
 
-            {productsList && 
-            <ListProducts 
-            prodList={prodList} 
-            updateProduct={updateProduct} 
-            deleteProduct={deleteProduct} 
-            backToAdminStart={backToAdminStart} 
-            />}
+            {productsList &&
+                <ListProducts
+                    prodList={prodList}
+                    updateProduct={updateProduct}
+                    deleteProduct={deleteProduct}
+                    backToAdminStart={backToAdminStart}
+                />}
 
-            {categoriesList && 
-            <ListCategories
-            cateList={cateList} 
-            updateCategory={updateCategory}
-            deleteCategory={deleteCategory}
-            backToAdminStart={backToAdminStart}
-            />}
+            {categoriesList &&
+                <ListCategories
+                    cateList={cateList}
+                    updateCategory={updateCategory}
+                    deleteCategory={deleteCategory}
+                    backToAdminStart={backToAdminStart}
+                />}
+            {orderList &&
+                <OrderList
+                    orders={orders}
+                    prodList={prodList}
+                />
+            }
 
         </div>
     )
@@ -108,7 +113,8 @@ let mapStateToProps = (state) => {
     return {
         auth: state.firebase.auth,
         prodList: state.firestore.ordered.products,
-        cateList: state.firestore.ordered.categories
+        cateList: state.firestore.ordered.categories,
+        orders: state.firestore.ordered.orders
     }
 }
 
@@ -126,7 +132,8 @@ let mapDispatchToProps = (dispatch) => {
 export default compose(connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect([
         { collection: 'products' },
-        { collection: 'categories' }
+        { collection: 'categories' },
+        { collection: 'orders' }
     ])
 )(Dashboard)
 

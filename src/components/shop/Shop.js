@@ -67,6 +67,7 @@ const Shop = ({ products, cart, addFormula, setShift }) => {
                     setOrderContent={setOrderContent}
                     setFormulaStatus={setFormulaStatus}
                     setShift={setShift}
+                    cart={cart}
                 />}
             <div className='shopContainer'>
                 {selectZip &&
@@ -115,6 +116,7 @@ const Shop = ({ products, cart, addFormula, setShift }) => {
                 {(!selectShift) &&
                     <Recap
                         orderContent={orderContent}
+                        cart={cart}
                         total={total}
                     />
                 }

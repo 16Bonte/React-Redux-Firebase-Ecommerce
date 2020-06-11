@@ -3,8 +3,7 @@ import moment from 'moment'
 import 'moment/locale/fr'
 import FadeIn from 'react-fade-in'
 
-
-let DayHour = ({ setFormulaStatus, orderContent, setOrderContent, setShift }) => {
+let DayHour = ({ setFormulaStatus, orderContent, setOrderContent, setShift, cart }) => {
 
 
     useEffect(() => {
@@ -21,13 +20,15 @@ let DayHour = ({ setFormulaStatus, orderContent, setOrderContent, setShift }) =>
             moreFood: [],
             moreFoodTotal: 0
         })
+        if (cart.products.length > 0) {
+            setFormulaStatus({ selectDayHour: false, selectFormula: true })
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     let chooseShift = e => {
-        console.log(e.target.value)
         setOrderContent({ ...orderContent, hour: e.target.id, day: e.target.name, formatedDay: e.target.value })
-        setShift({hour: e.target.id, day: e.target.name, formatedDay: e.target.value})
+        setShift({ hour: e.target.id, day: e.target.name, formatedDay: e.target.value })
         setFormulaStatus({ selectDayHour: false, selectZip: true })
     }
 
@@ -38,10 +39,8 @@ let DayHour = ({ setFormulaStatus, orderContent, setOrderContent, setShift }) =>
 
         for (let i = 0; i < 8; i++) {
             let formatedDay = moment().add(i, 'days').format()
-            console.log(formatedDay)
             let day = capitalize(moment().add(i, 'days').format('LLLL').slice(0, -11))
             let actualHour = new Date().getHours()
-            console.log(actualHour)
 
             // IF TODAY CHECK HOUR NOT TO PROPOSE EARLIER THEN TIME IT IS..
             if (i === 0 && (day.includes('Jeudi') || day.includes('Vendredi') || day.includes('Samedi'))) {
@@ -72,11 +71,12 @@ let DayHour = ({ setFormulaStatus, orderContent, setOrderContent, setShift }) =>
         return options
     }
 
+
     return (
         <FadeIn>
             <h4 className='shoppingProcessTitle'>Début de l'Apéro</h4>
             <h5 className='shoppingProcessTitle'>Créneaux de livraison (Bientôt Rond)</h5>
-            <hr/>
+            <hr />
             <div className='chooseDateBlock'>
                 <MyDay />
             </div>

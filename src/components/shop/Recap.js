@@ -2,9 +2,9 @@ import React from 'react'
 import FadeIn from 'react-fade-in';
 
 
-const Recap = ({ orderContent, total }) => {
+const Recap = ({cart, orderContent, total }) => {
 
-    let {day, hour, zip, formula, size, bottle, bottlePrice, moreDrink, moreFood } = orderContent
+    let {formula, size, bottle, bottlePrice, moreDrink, moreFood } = orderContent
 
     let {
         name,
@@ -23,8 +23,8 @@ const Recap = ({ orderContent, total }) => {
     return (
         <FadeIn delay={100}>
             <div className='formulaCart'>
-                <h4>{day}</h4>
-                <h5>{hour} <br/> {zip}</h5>
+                <h4>{cart.shift.day}</h4>
+                <h5>{cart.shift.hour} <br/> {cart.shift.zip}</h5>
                 <h4>{name}</h4>
                 {detail1Name &&
                     <FadeIn delay={100}>

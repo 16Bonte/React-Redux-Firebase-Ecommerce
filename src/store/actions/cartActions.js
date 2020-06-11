@@ -23,9 +23,20 @@ export let addToPastOrders = (data) => {
         firestore.collection(`users/${data.userId}/orders`).add({
             ...data.myOrder
         }).then(() =>{
-            console.log('goood')
+            console.log('added to user')
         }).catch((err) => {
             alert(err)
         })
+
+        firestore.collection(`orders`).add({
+            ...data.myOrder
+        }).then(() =>{
+            console.log('added to orders')
+        }).catch((err) => {
+            alert(err)
+        })
+
+        dispatch({type: 'EMPTY_CART'})
+
     }
 }

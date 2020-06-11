@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import CartItems from './CartItems'
 import PersonalInfos from './PersonalInfos'
 import Payment from './Payment'
+import PaymentFailed from './PaymentFailed'
+import PaymentSucceeded from './PaymentSucceeded'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
@@ -19,7 +21,9 @@ const Cart = ({ cart, users, auth, upDateInfos, removeFormula, addToPastOrders }
         init: true,
         personalInfos: false,
         intent: false,
-        payment: false
+        payment: false,
+        paymentFailed: false,
+        paymentSucceeded: false
     })
 
     let [userInfo, setUserInfo] = useState({
@@ -72,6 +76,17 @@ const Cart = ({ cart, users, auth, upDateInfos, removeFormula, addToPastOrders }
                         paymentIntent={paymentIntent}
                         setPaymentIntent={setPaymentIntent}
                         addToPastOrders={addToPastOrders}
+                        setCartStatus={setCartStatus}
+                    />
+                }
+                {cartStatus.paymentFailed &&
+                    <PaymentFailed
+                        setCartStatus={setCartStatus}
+                    />
+                }
+                {cartStatus.paymentSucceeded &&
+                    <PaymentSucceeded
+                        cart={cart}
                     />
                 }
             </Elements>

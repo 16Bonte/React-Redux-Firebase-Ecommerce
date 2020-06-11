@@ -9,8 +9,8 @@ const AdditionalFoods = ({ products, orderContent, setFormulaStatus, setOrderCon
 
     let previous = () => setFormulaStatus({ selectMoreFood: false, selectMoreDrink: true })
 
-    let addToCart = () => {
-        // format additional food and drinks - we use index to add or remove some so it makes undefined arrays - not ok with firebase
+    let addToCart = (e) => {
+        // format additional food and drinks - we use index to add or remove some so it makes undifined arrays - not ok with firebase
         let myFormula = orderContent
         let myAdditionalBottles = []
         let myAdditionalFoods = []
@@ -22,11 +22,12 @@ const AdditionalFoods = ({ products, orderContent, setFormulaStatus, setOrderCon
         })
         myFormula.moreDrink = myAdditionalBottles
         myFormula.moreFood = myAdditionalFoods
-        console.log(myFormula)
-
         addFormula(myFormula)
-        // setFormulaStatus({ selectMoreFood: false, selectFormula: true })
-        setGoToCart(true)
+        if (e.target.name === 'goToCart') {
+            setGoToCart(true)
+        } else if (e.target.name === 'addAnotherFormula') {
+            setFormulaStatus({ selectMoreFood: false, selectFormula: true })
+        }
     }
 
     if (goToCart) return <Redirect to='/pannier' />
@@ -49,8 +50,9 @@ const AdditionalFoods = ({ products, orderContent, setFormulaStatus, setOrderCon
                 }
                 return null
             })}
-            <button onClick={previous}>Next</button>
-            <button onClick={addToCart}>Ajouter ma formule au pannier</button>
+            <button onClick={previous}>Précédent</button>
+            <button name='goToCart' onClick={addToCart}>Aller au pannier</button>
+            <button name='addAnotherFormula' onClick={addToCart}>Ajouter un autre produit</button>
 
         </FadeIn>
     )

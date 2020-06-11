@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react'
-import { storage } from '../../config/fbConfig';
+import { storage } from '../../../config/fbConfig';
 
 let AddProduct = ({ createProduct, backToAdminStart, cateList }) => {
 
@@ -20,38 +20,6 @@ let AddProduct = ({ createProduct, backToAdminStart, cateList }) => {
         setProduct({ ...product, [e.target.id]: e.target.value })
         console.log(product)
     }
-
-
-    // let addDetail = e => {
-    //     e.preventDefault()
-    //     setNewDetail(newDetail + 1)
-    // }
-
-    // let [newDetail, setNewDetail] = useState(1)
-
-    // let details = []
-
-    // let DetailsQuantities = () => {
-    //     for (let i = 1; i < newDetail; i++) {
-    //         details.push(
-    //             <div className="row" key={i}>
-    //                 <div className="input-field col s4">
-    //                     <label htmlFor="fez">Détails {i}</label>
-    //                     <input type="text" id='name' value={details.name} onChange={handleDetails} />
-    //                 </div>
-    //                 <div className="input-field col s4">
-    //                     <label htmlFor="fezfe">Quantité</label>
-    //                     <input type="text" id={`detail${i}`} onChange={handleChange} />
-    //                 </div>
-    //                 <div className="input-field col s4">
-    //                     <label htmlFor="tieeetle">Unité</label>
-    //                     <input type="text" id={`detail${i}`} onChange={handleChange} />
-    //                 </div>
-    //             </div>
-    //         )
-    //     }
-    //     return details
-    // }
 
     let downloadImage = event => {
         console.log(event.target.files[0])
