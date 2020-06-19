@@ -20,7 +20,6 @@ const Cart = ({ cart, users, auth, upDateInfos, removeFormula, addToPastOrders }
     let [cartStatus, setCartStatus] = useState({
         init: true,
         personalInfos: false,
-        intent: false,
         payment: false,
         paymentFailed: false,
         paymentSucceeded: false
